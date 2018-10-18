@@ -1,0 +1,71 @@
+<div class="dd">
+	<select id="select_animate" class="dropdown" onchange="Stroke()">
+		<option value="Default">Choose a character to animate</option>
+    <script>
+    	var str = "{{Hanzi}}";
+    	var list = str.split("");
+		var d1 = document.getElementById('select_animate')
+        for(i=0; i<list.length; i++) {  
+            d1.insertAdjacentHTML('beforeend','<option value="' + list[i] +'">' + list[i] + '</option>');
+        }
+    </script>
+	</select>
+</div>
+
+<div style="margin: 0 auto; width: 200px; height: 200px" id="character-target-div"></div>
+
+<script language="javascript">
+	function Stroke(){
+		var js = document.createElement("script");
+		js.type = "text/javascript";
+		js.src = "https://cdn.jsdelivr.net/npm/hanzi-writer@0.11/dist/hanzi-writer.min.js";
+		js.onload = function() {
+		var writer = new HanziWriter('character-target-div', document.getElementById("select_animate").value, {
+			  width: 200,
+			  height: 200,
+			  padding: 5,
+			  showOutline: true,
+			  strokeAnimationSpeed: 1, 
+			  delayBetweenStrokes: 150, // milliseconds
+			  radicalColor: '#337ab7' // blue
+			  
+			});
+			writer.loopCharacterAnimation();
+			document.getElementById("select_animate").onchange = function() {newcharacter()};
+			function newcharacter() {
+				writer.setCharacter(document.getElementById("select_animate").value);
+				writer.loopCharacterAnimation();
+			}
+			
+		};
+			document.body.appendChild(js);
+	}
+</script>
+<style>
+.card {
+padding: 0;
+border: none;
+background: none;
+ font-family: arial;
+ font-size: 35px;
+ text-align: center;
+ color: black;
+ background-color: white;
+ cursor: pointer;
+
+}
+.dd .dropdown {
+    background-color: #4CAF50; /* Green */
+    border: 1px solid green;
+    color: white;
+    padding: 15px 32px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    float: left;
+}
+
+.dd .dropdown:hover {
+    background-color: #3e8e41;
+}
+</style>
