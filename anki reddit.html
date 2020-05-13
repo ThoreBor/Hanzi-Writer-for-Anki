@@ -1,8 +1,10 @@
+<!-- BACKSIDE -->
+
 <div class="dd">
 	<select id="select_animate" class="dropdown" onchange="Stroke()">
 		<option value="Default">Choose a character to animate</option>
     <script>
-    	var str = "{{Hanzi}}";
+    	var str = "{{NAME_OF_FIELD_WHERE_CHARACTERS_ARE_IN}}";
     	var list = str.split("");
 		var d1 = document.getElementById('select_animate')
         for(i=0; i<list.length; i++) {  
@@ -12,35 +14,39 @@
 	</select>
 </div>
 
-<div style="margin: 0 auto; width: 200px; height: 200px" id="character-target-div"></div>
+<br><br><br><br>
+<div class="" id="target"></div>
 
 <script language="javascript">
 	function Stroke(){
-		var js = document.createElement("script");
-		js.type = "text/javascript";
-		js.src = "https://cdn.jsdelivr.net/npm/hanzi-writer@0.11/dist/hanzi-writer.min.js";
-		js.onload = function() {
-		var writer = new HanziWriter('character-target-div', document.getElementById("select_animate").value, {
-			  width: 200,
-			  height: 200,
-			  padding: 5,
-			  showOutline: true,
-			  strokeAnimationSpeed: 1, 
-			  delayBetweenStrokes: 150, // milliseconds
-			  radicalColor: '#337ab7' // blue
-			  
-			});
-			writer.loopCharacterAnimation();
-			document.getElementById("select_animate").onchange = function() {newcharacter()};
-			function newcharacter() {
-				writer.setCharacter(document.getElementById("select_animate").value);
-				writer.loopCharacterAnimation();
-			}
-			
-		};
-			document.body.appendChild(js);
-	}
+		document.getElementById("target").className = "bgimg"
+        var js = document.createElement("script");
+        js.type = "text/javascript";
+        js.src = "https://cdn.jsdelivr.net/npm/hanzi-writer@2.2/dist/hanzi-writer.min.js";
+        js.onload = function() {
+        var writer = HanziWriter.create('target', document.getElementById("select_animate").value, {
+              width: 200,
+              height: 200,
+              padding: 5,   
+              showOutline: true,
+              strokeAnimationSpeed: 1, 
+              delayBetweenStrokes: 150, // milliseconds
+              radicalColor: '#337ab7' // blue
+              
+            });
+            writer.loopCharacterAnimation();
+            document.getElementById("select_animate").onchange = function() {newcharacter()};
+            function newcharacter() {
+                writer.setCharacter(document.getElementById("select_animate").value);
+                writer.loopCharacterAnimation();
+            }
+        };
+            document.body.appendChild(js);
+    }
 </script>
+
+<!-- STYLING -->
+
 <style>
 .card {
 padding: 0;
@@ -55,17 +61,28 @@ background: none;
 
 }
 .dd .dropdown {
-    background-color: #4CAF50; /* Green */
-    border: 1px solid green;
+    background-color: cornflowerblue;
+    border: 1px solid royalblue;
     color: white;
     padding: 15px 32px;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     width: 100%;
+	height: 50px;
     float: left;
+    border-collapse: collapse;
 }
-
 .dd .dropdown:hover {
-    background-color: #3e8e41;
+    background-color: navy;
+}
+.dd .dropdown:focus {
+    outline:0 !important;
+}
+.bgimg {
+    border:1px solid black;
+    margin: 0 auto; 
+    width: 200px; 
+    height: 200px;
+    background-image: url('https://i.ibb.co/BTmh6Hm/bg.png');
 }
 </style>
