@@ -16,32 +16,28 @@
 
 <br><br><br><br>
 <div class="" id="target"></div>
-
+<script src="https://cdn.jsdelivr.net/npm/hanzi-writer@2.2/dist/hanzi-writer.min.js"></script>
 <script language="javascript">
 	function Stroke(){
+		document.getElementById("meaning").innerHTML = ""
 		document.getElementById("target").className = "bgimg"
-		var js = document.createElement("script");
-		js.type = "text/javascript";
-		js.src = "https://cdn.jsdelivr.net/npm/hanzi-writer@2.2/dist/hanzi-writer.min.js";
-		js.onload = function() {
 		var writer = HanziWriter.create('target', document.getElementById("select_animate").value, {
-		      width: 200,
-		      height: 200,
-		      padding: 5,   
-		      showOutline: true,
-		      strokeAnimationSpeed: 1, 
-		      delayBetweenStrokes: 150, // milliseconds
-		      radicalColor: '#337ab7' // blue
-		    });
-		    writer.loopCharacterAnimation();
-		    document.getElementById("select_animate").onchange = function() {newcharacter()};
-		    function newcharacter() {
-			writer.setCharacter(document.getElementById("select_animate").value);
+			width: 200,
+			height: 200,
+			padding: 5,   
+			showOutline: true,
+			strokeAnimationSpeed: 1, 
+			delayBetweenStrokes: 150, // milliseconds
+			radicalColor: '#337ab7' // blue
+		});
 			writer.loopCharacterAnimation();
-		    }
-		};
-		    document.body.appendChild(js);
-	    }
+			
+			document.getElementById("select_animate").onchange = function() {newcharacter()};
+			function newcharacter() {
+				writer.setCharacter(document.getElementById("select_animate").value);
+				writer.loopCharacterAnimation();
+			};
+	};
 </script>
 
 <!-- STYLING -->
