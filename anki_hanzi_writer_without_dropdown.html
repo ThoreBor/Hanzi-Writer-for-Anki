@@ -1,0 +1,20 @@
+<script src="https://cdn.jsdelivr.net/npm/hanzi-writer@2.2/dist/hanzi-writer.min.js"></script>
+
+
+<div id="target"></div>
+
+<script type="text/javascript">
+	var characters = "{{NAME OF FIELD WHERE CHARACTERS ARE IN}}".split("")
+	for (x of characters) {
+		var writer = HanziWriter.create('target', x, {
+		  	width: 70,
+			height: 70,
+		  	padding: 5,   
+		  	showOutline: true,
+		  	strokeAnimationSpeed: 1, 
+		  	delayBetweenStrokes: 150, // milliseconds
+		 	radicalColor: '#337ab7' // blue
+		});
+		writer.loopCharacterAnimation();
+	};
+</script>
