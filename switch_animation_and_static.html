@@ -1,0 +1,84 @@
+<ruby id="normal" style="display: block;">
+	<button class="card" id="chinese" style="font-size: 30px; font-family: Kaiti" onclick="Pleco()">{{Hanzi}}</button>
+	<rt>{{Pinyin}}</rt>
+</ruby>
+
+<ruby id="animate" style="display: none;">
+	<button class="card" id="target" onclick="Pleco()"></button>
+	<rt>{{Pinyin}}</rt>
+</ruby>
+
+<button id="invisibleButton" onclick="switchChinese()"></button>
+
+<script>
+	function animation() {
+		var characters = "{{Hanzi}}".split("");
+		var js = document.createElement("script");
+		js.type = "text/javascript";
+		js.src = "https://cdn.jsdelivr.net/npm/hanzi-writer@3.2/dist/hanzi-writer.min.js";
+		js.onload = function() {
+			for (x of characters) {
+				var writer = HanziWriter.create("target", x, {
+					width: 70,
+					height: 70,
+					padding: 5,   
+					showOutline: true,
+					strokeAnimationSpeed: 1, 
+					delayBetweenStrokes: 50,
+					radicalColor: "#337ab7",
+					delayBetweenLoops: 0
+				});
+				writer.loopCharacterAnimation();
+			};
+		};
+		document.body.appendChild(js);
+	}
+
+	function switchChinese() {
+	    var e1 = document.getElementById("normal");
+	    var e2 = document.getElementById("animate");
+	    if (e1.style.display == "block"){
+	    	e1.style.display = "none";
+	        e2.style.display = "block";
+	        document.getElementById("target").innerHTML = ""
+	        animation();
+	    } else {
+	    	e1.style.display = "block";
+	        e2.style.display = "none";
+	        document.getElementById("chinese").innerHTML = "{{Hanzi}}";
+	    }
+	}
+	
+	/*Tapping/Clicking on the characters will open pleco on mobile if installed*/
+	function Pleco(){
+		window.open(`plecoapi://x-callback-url/s?q=${"{{Hanzi}}"}`);
+	}	
+</script>
+
+<style type="text/css">
+	.nightMode button#invisibleButton {
+		background-color: transparent;
+		display:block; 
+		position: fixed; 
+		left: 0; 
+		width: 100%; 
+		height: 33%;
+		bottom: 0px;
+		color: red;
+		border: none;
+		outline: 0
+	}
+
+	button#invisibleButton {
+		background-color: transparent;
+		display:block; 
+		position: fixed; 
+		left: 0; 
+		width: 100%; 
+		height: 33%;
+		bottom: 0px;
+		color: red;
+		border: none;
+		outline: 0
+	}
+</style>
